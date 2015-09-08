@@ -15,7 +15,7 @@ class ApiController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $json = $this->getTwitchDataAsJson($this->url(), $this->params());
+        $json = $this->getTwitchData($this->url(), $this->params());
         $channels = $this->parseTwitchData($json);
 
         return new JsonResponse(array('channels' => $channels));
