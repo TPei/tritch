@@ -11,6 +11,8 @@ This way Twitch streamers will be able to optimize their streaming to best suit 
 * [Capybara](http://jnicklas.github.io/capybara/) for UI Testing
 * [HAML](http://haml.info/) should replace embedded Ruby as the templating language of choice
 * Continuous async Api Querying will probably be done using [Sidekiq](http://sidekiq.org/)
+* [Devise](https://github.com/plataformatec/devise) for user authentication
+* [Pundit](https://github.com/elabs/pundit) for authentication if need be
 
 ###DB
 * DB could be relational, for the time being we will use the default rails sqlite3 database
