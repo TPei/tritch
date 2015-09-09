@@ -15,7 +15,8 @@ This way Twitch streamers will be able to optimize their streaming to best suit 
 * [Pundit](https://github.com/elabs/pundit) for authentication if need be
 
 ###DB
-* DB could be relational, for the time being we will use the default rails sqlite3 database
+* DB will be MongoDB for relatively young data
+* MySQL data warehouse to keep older data stored
 
 ###Frontend
 * Visualization might be done using [HighCharts](https://en.wikipedia.org/wiki/Single_responsibility_principle). But that depends on the licensing...
