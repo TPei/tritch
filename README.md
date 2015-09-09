@@ -5,7 +5,10 @@ This way Twitch streamers will be able to optimize their streaming to best suit 
 ![Landing Page](app/assets/images/landing.png)
 
 Continuous async Api Querying will probably be done using [Sidekiq](http://sidekiq.org/)
+
 DB could be relational, for the time being we will use the default rails sqlite3 database.
+
+Visualization might be done using [HighCharts](https://en.wikipedia.org/wiki/Single_responsibility_principle). But that depends on the licensing...
 
 ##Mantra: Skinny everything!
 * Thin controllers, thin models, reusable layers in between.
