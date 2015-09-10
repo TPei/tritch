@@ -8,13 +8,20 @@ class TwitchApiQuerier
   end
 
   def parse_data
-    @channels = Array.new
-    json_data['top'].each do |channel|
-      @channels.push(
+    @streams = Array.new
+
+    json_data['featured'].each do |feature|
+      @streams.push(
           {
-              name: channel['game']['name'],
-              id: channel['game']['id'],
-              viewers: channel['viewers']
+              game: feature['stream']['game'],
+              id: feature['stream']['_id'],
+              viewers: feature['stream']['viewers'],
+              stream_link: feature['stream']['_links']['self'],
+              channel_id: feature['stream']['channel']['_id'],
+              channel_name: feature['stream']['channel']['display_name'],
+              channel_link: feature['stream']['channel']['_links']['self'],
+              profile_image: feature['stream']['preview']['template'],
+
           }
       )
     end
