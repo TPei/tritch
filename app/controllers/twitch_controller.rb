@@ -9,7 +9,7 @@ class TwitchController < ActionController::Base
     featured = '/streams/featured'
     client_id = 'not-this-one'
     url =  api_url + featured + '?limit=20&client-id=' + client_id
-    
+
     twitch = TwitchApiQuerier.new(url)
     twitch.parse_data
     render json: twitch
