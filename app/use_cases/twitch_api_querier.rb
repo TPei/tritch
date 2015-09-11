@@ -7,10 +7,10 @@ class TwitchApiQuerier
 
     json_data['top'].each do |top|
       game = Game.find_or_create_by(name: top['game']['name'], game_id: top['game']['_id'])
-      stat = GameStat.create(viewers: top['viewers'], channels: top['channels'], game: game, timestamp: now)
+      GameStat.create(viewers: top['viewers'], channels: top['channels'], game: game, timestamp: now)
     end
 
-    twitch_stat = TwitchStat.create(viewers: total_viewers, channels: total_channels, games: json_data['_total'], timestamp: now)
+    TwitchStat.create(viewers: total_viewers, channels: total_channels, games: json_data['_total'], timestamp: now)
   end
 
   private
