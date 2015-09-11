@@ -4,14 +4,8 @@ require 'open-uri'
 class TwitchController < ActionController::Base
 
   def api
-    # TODO cleanup
-    api_url = 'https://api.twitch.tv/kraken'
-    featured = '/streams/featured'
-    client_id = 'not-this-one'
-    url =  api_url + featured + '?limit=20&client-id=' + client_id
-
-    twitch = TwitchApiQuerier.new(url)
+    twitch = TwitchApiQuerier.new
     twitch.parse_data
-    render json: twitch
+    render json: {'success' => true}
   end
 end

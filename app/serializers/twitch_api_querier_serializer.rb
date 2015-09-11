@@ -1,3 +1,3 @@
 class TwitchApiQuerierSerializer < ActiveModel::Serializer
-  attributes :channels
+  attributes :games, :total
 end
