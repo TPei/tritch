@@ -1,5 +1,3 @@
-include ActiveModel::Serialization
-
 class TwitchApiQuerier
 
   def parse_data
