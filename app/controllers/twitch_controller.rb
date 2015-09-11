@@ -12,4 +12,12 @@ class TwitchController < ActionController::Base
     TwitchTopGamesWorker.perform_async
     render json: {'success' => true}
   end
+
+  def schedule
+    hours = params[:hours]
+    interval = 5
+    repetitions = (hours.to_i * 60 / interval) - 1
+    (0..repetitions).each { |mult| TwitchTopGamesWorker.perform_in((interval*mult).minutes) }
+    render json: {'success' => true}
+  end
 end
