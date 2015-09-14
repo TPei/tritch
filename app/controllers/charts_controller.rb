@@ -9,7 +9,7 @@ class ChartsController < ActionController::Base
   end
 
   def twitchTotalOverTime
-    stats = StatsParser.new
-    render json: { 'test' => 'nothing here' }
+    @stats = StatsParser.new
+    render json: @stats
   end
 end
