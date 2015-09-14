@@ -125,6 +125,7 @@ GEM
       bson (~> 3.0)
       connection_pool (~> 2.0)
       optionable (~> 0.2.0)
+    moving_average (0.1.1)
     multi_json (1.11.2)
     nenv (0.2.0)
     nokogiri (1.6.6.2)
@@ -221,6 +222,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   mongoid (~> 4.0.2)
+  moving_average
   rails (= 4.2.4)
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
