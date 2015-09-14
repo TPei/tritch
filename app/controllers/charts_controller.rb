@@ -4,4 +4,12 @@ class ChartsController < ActionController::Base
 
   def bar
   end
+
+  def twitchtotal
+  end
+
+  def twitchTotalOverTime
+    stats = StatsParser.new
+    render json: { 'test' => 'nothing here' }
+  end
 end

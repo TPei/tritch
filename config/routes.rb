@@ -9,6 +9,9 @@ Rails.application.routes.draw do
   get 'charts/line' => 'charts#line'
   get 'charts/bar' => 'charts#bar'
 
+  get 'charts/total' => 'charts#twitchtotal'
+  get 'charts/totalovertime' => 'charts#twitchTotalOverTime'
+
   require 'sidekiq/web'
   mount Sidekiq::Web => '/sidekiq'
 end
