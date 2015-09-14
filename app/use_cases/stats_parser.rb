@@ -5,7 +5,7 @@ class StatsParser
   end
 
   def hourly_average
-    # this works on the premise that we got exactly one data point per hour
+    # this works on the premise that we got exactly 12 data point per hour
     # but this is not the case because we can't guarantee that the workers
     # go 24/7 without problems.
     # server downtime / internet disc, strange behaviours where 10 workers won't run
@@ -15,7 +15,7 @@ class StatsParser
   end
 
   def daily_average
-    'TODO inmplement'
+    # TODO implement
   end
 
   private
