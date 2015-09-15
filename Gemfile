@@ -14,6 +14,7 @@ gem 'bootstrap-sass',       '3.2.0.0'
 gem 'mongoid', '~> 4.0.2'
 gem 'sidekiq'
 gem 'sinatra', :require => nil
+gem 'contracts'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
