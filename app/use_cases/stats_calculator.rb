@@ -1,6 +1,9 @@
 require 'moving_average'
+require 'contracts'
 
 class StatsCalculator
+  include Contracts
+
   def initialize
   end
 
@@ -21,17 +24,21 @@ class StatsCalculator
   private
 
     def data
+      # TODO: exclude this from json serialization
       @data ||= TwitchStat.all.only(:viewers, :timestamp)
     end
 
+    Contract None => ArrayOf[Num]
     def viewers
       data.collect{ |date| date['viewers'] }
     end
 
+    Contract Num => ArrayOf[Num]
     def average_viewers_per_x_hours(hours)
       simple_moving_average(viewers, 12*hours)
     end
 
+    Contract ArrayOf[Num], Num => ArrayOf[Num]
     def simple_moving_average(the_stats, accuracy)
       stats = []
 
