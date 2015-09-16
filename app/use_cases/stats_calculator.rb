@@ -19,8 +19,9 @@ class StatsCalculator
   end
 
   private
+
     def data
-      data ||= TwitchStat.all.only(:viewers, :timestamp)
+      @data ||= TwitchStat.all.only(:viewers, :timestamp)
     end
 
     def viewers
