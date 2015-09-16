@@ -5,4 +5,8 @@ class ApplicationController < ActionController::Base
 
   def home
   end
+
+  def charts
+  end
+
 end
