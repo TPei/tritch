@@ -20,12 +20,11 @@ class StatsCalculator
 
   private
     def data
-       # TODO: should use .only() instead of pluck to get a hash instead of a 2d array
-      data ||= TwitchStat.all.pluck(:viewers, :timestamp)
+      data ||= TwitchStat.all.only(:viewers, :timestamp)
     end
 
     def viewers
-      data.collect(&:first)
+      data.collect{ |date| date['viewers'] }
     end
 
     def average_viewers_per_x_hours(hours)
