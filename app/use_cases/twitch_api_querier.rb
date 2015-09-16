@@ -1,5 +1,9 @@
-class TwitchApiQuerier
+require 'contracts'
 
+class TwitchApiQuerier
+  include Contracts
+
+  Contract None => nil
   def parse_data
     now = DateTime.now
 
@@ -9,6 +13,8 @@ class TwitchApiQuerier
     end
 
     TwitchStat.create(viewers: total_viewers, channels: total_channels, games: json_data['_total'], timestamp: now)
+
+    return
   end
 
   private
