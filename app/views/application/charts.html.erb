@@ -14,7 +14,7 @@
 <script>
   $(document).ready(function(){
       console.log("ready");
-      var url = getRootUrl() + 'charts/totalovertime';
+      var url = getRootUrl() + 'charts/total/hourly';
       $.ajax(url, {
           success: function(data) {
               console.log(data);

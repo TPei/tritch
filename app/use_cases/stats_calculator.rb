@@ -1,6 +1,6 @@
 require 'moving_average'
 
-class StatsParser
+class StatsCalculator
   def initialize
   end
 
