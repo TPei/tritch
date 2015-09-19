@@ -35,7 +35,7 @@ class TwitchApiQuerier
     end
 
     def total_channels
-      json_data['top'].collect{|top| top['channels']}.sum
+      @json_data['top'].collect{|top| top['channels']}.sum
     end
 
 
