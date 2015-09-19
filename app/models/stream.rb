@@ -1,7 +1,7 @@
 class Stream
   include Mongoid::Document
   field :game, type: String
-  field :game_id, type: Integer
-  embeds_many :stream_stats, store_as: 'stats'
+  field :stream_id, type: Integer
+  has_one :stream_stats_wrapper
   embedded_in :twitch_user
 end
