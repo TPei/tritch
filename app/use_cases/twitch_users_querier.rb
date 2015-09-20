@@ -91,31 +91,31 @@ class TwitchUsersQuerier
       @average_fps ||= data['average_fps']
     end
 
-    def channel
-      @channel ||= data['channel']
+    def channel_data
+      @channel_data ||= data['channel']
     end
 
     def channel_id
-      @channel_id ||= channel['_id']
+      @channel_id ||= channel_data['_id']
     end
 
     def channel_name
-      @channel_name ||= channel['name']
+      @channel_name ||= channel_data['name']
     end
 
     def channel_followers
-      @channel_followers ||= channel['followers']
+      @channel_followers ||= channel_data['followers']
     end
 
     def channel_views
-      @channel_views ||= channel['views']
+      @channel_views ||= channel_data['views']
     end
 
     def channel_status
-      @channel_status ||= channel['status']
+      @channel_status ||= channel_data['status']
     end
 
     def channel_mature
-      @channel_mature ||= channel['mature']
+      @channel_mature ||= channel_data['mature']
     end
 end
