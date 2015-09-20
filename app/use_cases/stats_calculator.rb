@@ -42,7 +42,7 @@ class StatsCalculator
     def simple_moving_average(the_stats, accuracy)
       stats = []
 
-      (1..the_stats.length-1).each do |i|
+      (1..the_stats.length-1).step(accuracy).each do |i|
         stats.push(the_stats.exponential_moving_average(i, [i, accuracy].min).to_i)
       end
 
