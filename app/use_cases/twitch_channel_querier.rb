@@ -1,13 +1,7 @@
 require 'contracts'
 
-class TwitchUsersQuerier
+class TwitchChannelQuerier < Struct.new(:channel)
   include Contracts
-
-  attr_reader :channel
-
-  def initialize(channel)
-    @channel = channel
-  end
 
   Contract None => String
   def parse_data

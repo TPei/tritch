@@ -30,7 +30,7 @@ class TwitchController < ActionController::Base
 
   def users
     channel = params[:channel]
-    tuq = TwitchUsersQuerier.new channel
+    tuq = TwitchChannelQuerier.new channel
     status = tuq.parse_data
     render json: {'status' => status}
   end
