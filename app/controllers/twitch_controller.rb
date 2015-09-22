@@ -27,4 +27,23 @@ class TwitchController < ActionController::Base
     TwitchWorkerWorker.perform_async(hours)
     render json: {'success' => true}
   end
+
+  def users
+    channel = params[:channel]
+    tuq = TwitchChannelQuerier.new channel
+    status = tuq.parse_data
+    render json: {'status' => status}
+  end
+
+  def async_users
+    TwitchChannelWorker.perform_async(params[:channel])
+    render json: {'success' => true}
+  end
+
+  def endless_users
+    hours = params[:hours].to_i
+    channel = params[:channel]
+    TwitchChannelWorkerWorker.perform_async(hours, channel)
+    render json: {'success' => true}
+  end
 end
