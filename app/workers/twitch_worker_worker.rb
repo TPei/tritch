@@ -1,6 +1,6 @@
 class TwitchWorkerWorker
   include Sidekiq::Worker
-  #sidekiq_options :queue => :twitchtop
+  sidekiq_options :queue => :twitch_stats, :retry => 5
 
   def perform(hour)
     interval = 5

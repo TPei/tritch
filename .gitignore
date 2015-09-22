@@ -80,3 +80,6 @@ bower.json
 
 # Ignore pow environment settings
 .powenv
+
+#vim swap files
+*.swp
