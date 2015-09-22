@@ -4,6 +4,8 @@ require 'contracts'
 class StatsCalculator
   include Contracts
 
+  # this code is super bad and super slow
+
   def initialize
   end
 
@@ -33,9 +35,14 @@ class StatsCalculator
       data.collect{ |date| date['viewers'] }
     end
 
-    Contract Num => ArrayOf[Num]
+    def timestamps
+      data.collect { |date| date['timestamp'] }
+    end
+
+    #Contract Num => ArrayOf[ArrayOf[Num], ArrayOf[Time]]
     def average_viewers_per_x_hours(hours)
-      simple_moving_average(viewers, 12*hours)
+      accuracy = 12*hours
+      [simple_moving_average(viewers, accuracy), (accuracy - 1).step(timestamps.size - 1, accuracy).map { |i| timestamps[i].strftime("%b %-d, %H:00") }]
     end
 
     Contract ArrayOf[Num], Num => ArrayOf[Num]

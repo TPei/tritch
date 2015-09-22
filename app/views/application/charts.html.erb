@@ -1,5 +1,5 @@
+<% provide(:title, 'Charts') %>
 <% content_for :head do %>
-    <title>Charts</title>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
 <% end %>
@@ -17,10 +17,10 @@
       var url = getRootUrl() + 'charts/total/hourly';
       $.ajax(url, {
           success: function(data) {
-              console.log(data);
               data = data["stats"];
+              console.log(data);
               var lineChartData = {
-                  labels : data,
+                  labels : data[1],
                   datasets : [
                       {
                           label: "viewers",
@@ -30,7 +30,7 @@
                           pointStrokeColor : "#fff",
                           pointHighlightFill : "#fff",
                           pointHighlightStroke : "rgba(151,187,205,1)",
-                          data : data
+                          data : data[0]
                       }
                   ]
               };
