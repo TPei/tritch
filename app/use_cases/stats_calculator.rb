@@ -16,7 +16,7 @@ class StatsCalculator
     # server downtime / internet disc, strange behaviours where 10 workers won't run
     # and then suddenly 10 run at the same time
     # we gotta use the timestamps here
-    @stats = average_viewers_per_x_hours 1
+    average_viewers_per_x_hours 1
   end
 
   def daily_average
@@ -26,7 +26,6 @@ class StatsCalculator
   private
 
     def data
-      # TODO: exclude this from json serialization
       @data ||= TwitchStat.all.only(:viewers, :timestamp)
     end
 
@@ -39,18 +38,19 @@ class StatsCalculator
       data.collect { |date| date['timestamp'] }
     end
 
-    #Contract Num => ArrayOf[ArrayOf[Num], ArrayOf[Time]]
+    Contract Num => {"viewers" => ArrayOf[Num], "timestamps" => ArrayOf[String]} 
     def average_viewers_per_x_hours(hours)
       accuracy = 12*hours
-      [simple_moving_average(viewers, accuracy), (accuracy - 1).step(timestamps.size - 1, accuracy).map { |i| timestamps[i].strftime("%b %-d, %H:00") }]
+      simple_moving_average(viewers, timestamps, accuracy)
     end
 
-    Contract ArrayOf[Num], Num => ArrayOf[Num]
-    def simple_moving_average(the_stats, accuracy)
-      stats = []
+    Contract ArrayOf[Num], ArrayOf[Time], Num => {"viewers" => ArrayOf[Num], "timestamps" => ArrayOf[String]}
+    def simple_moving_average(viewers, timestamps, accuracy)
+      stats = {"viewers" => [], "timestamps" => []} 
 
-      (1..the_stats.length-1).step(accuracy).each do |i|
-        stats.push(the_stats.exponential_moving_average(i, [i, accuracy].min).to_i)
+      (1..viewers.length-1).step(accuracy).each do |i|
+        stats["viewers"].push(viewers.exponential_moving_average(i, [i, accuracy].min).to_i)
+        stats["timestamps"].push(timestamps[i].strftime("%b %-d, %H:00"))
       end
 
       return stats

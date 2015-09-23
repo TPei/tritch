@@ -6,8 +6,8 @@ class ChartsController < ActionController::Base
   end
 
   def total_hourly
-    stats.hourly_average
-    render json: @stats
+    hourly_averages = stats.hourly_average
+    render json: hourly_averages
   end
 
   private

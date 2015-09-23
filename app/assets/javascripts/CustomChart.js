@@ -69,7 +69,7 @@
 			scaleShowLabels: true,
 
 			// Boolean or a positive integer denoting number of labels to be shown on x axis
-			showXLabels: 14,
+			showXLabels: true,
 
 			// Interpolated JS string - can access value
 			scaleLabel: "<%=value%>",
