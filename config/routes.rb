@@ -11,6 +11,10 @@ Rails.application.routes.draw do
   get 'api/schedule/:hours' => 'twitch#schedule'
   get 'api/endless/:hours' => 'twitch#endless'
 
+  get 'api/users/:channel' => 'twitch#users'
+  get 'api/users/async/:channel' => 'twitch#async_users'
+  get 'api/users/endless/:hours/:channel' => 'twitch#endless_users'
+
   require 'sidekiq/web'
   mount Sidekiq::Web => '/sidekiq'
 end
