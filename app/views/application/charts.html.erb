@@ -1,0 +1,61 @@
+<% provide(:title, 'Charts') %>
+<% content_for :head do %>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+<% end %>
+
+<div style="width:100%">
+  <div>
+    <canvas id="canvas"></canvas>
+  </div>
+</div>
+
+
+<script>
+  $(document).ready(function(){
+      console.log("ready");
+      var url = getRootUrl() + 'charts/total/hourly';
+      $.ajax(url, {
+        success: function(data) {
+              var lineChartData = {
+                  labels : data["timestamps"],
+                  datasets : [
+                      {
+                          label: "viewers",
+                          fillColor : "rgba(151,187,205,0.2)",
+                          strokeColor : "rgba(151,187,205,1)",
+                          pointColor : "rgba(151,187,205,1)",
+                          pointStrokeColor : "#fff",
+                          pointHighlightFill : "#fff",
+                          pointHighlightStroke : "rgba(151,187,205,1)",
+                          data : data["viewers"]
+                      }
+                  ]
+              };
+
+              var ctx = $("#canvas")[0].getContext("2d");
+              ctx.width = document.body.clientWidth;
+              ctx.height = document.body.clientHeight;
+              myLine = new Chart(ctx).Line(lineChartData, {
+                responsive: true,
+                showXLabels: data["timestamps"].length / 12
+              });
+          },
+          error: function(data) {
+              console.log('error');
+          }
+      });
+  });
+
+  function getRootUrl() {
+      var rootUrl = '';
+      if (window.location.origin)
+          rootUrl = window.location.origin + '/';
+      else
+          rootUrl = window.location.protocol + '//' + window.location.host + '/';
+
+      return rootUrl;
+  }
+
+
+</script>
