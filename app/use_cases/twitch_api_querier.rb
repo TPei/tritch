@@ -38,5 +38,4 @@ class TwitchApiQuerier
       json_data['top'].collect{ |top| top['channels'] }.sum
     end
 
-
 end

@@ -7,14 +7,23 @@
 <div style="width:100%">
   <div>
     <canvas id="canvas"></canvas>
+    <input type="text" id="game_name" placeholder="game name">
+    <button onclick="changeChart()">Update</button>
   </div>
 </div>
 
 
 <script>
-  $(document).ready(function(){
-      console.log("ready");
-      var url = getRootUrl() + 'charts/total/hourly';
+  function changeChart() {
+    name = $('#game_name').val();
+    name = name.replace(/ /g, "%20");
+    console.log("loading data for game: " + name);
+    var url = getRootUrl() + 'charts/total/hourly/' + name;
+    makeChart(url);
+  } 
+
+function makeChart(url) {
+  console.log("getting data");
       $.ajax(url, {
         success: function(data) {
               var lineChartData = {
@@ -45,7 +54,7 @@
               console.log('error');
           }
       });
-  });
+  }
 
   function getRootUrl() {
       var rootUrl = '';
@@ -56,6 +65,14 @@
 
       return rootUrl;
   }
+
+$(document).ready(function(){
+      console.log("ready");
+      var url = getRootUrl() + 'charts/total/hourly';
+      makeChart(url);
+  });
+
+
 
 
 </script>
