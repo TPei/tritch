@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
   get 'charts/total/daily' => 'charts#total_daily'
   get 'charts/total/hourly' => 'charts#total_hourly'
+  get 'charts/total/hourly/:game' => 'charts#total_hourly_game'
 
   get 'api' => 'twitch#api'
   get 'api/async' => 'twitch#async'

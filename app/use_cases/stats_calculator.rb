@@ -3,10 +3,12 @@ require 'contracts'
 
 class StatsCalculator
   include Contracts
+  attr_reader :data
 
   # this code is super bad and super slow
 
-  def initialize
+  def initialize(data)
+    @data = data
   end
 
   def hourly_average
@@ -25,17 +27,13 @@ class StatsCalculator
 
   private
 
-    def data
-      @data ||= TwitchStat.all.only(:viewers, :timestamp)
-    end
-
     Contract None => ArrayOf[Num]
     def viewers
-      data.collect{ |date| date['viewers'] }
+      data.each.collect{ |date| date['viewers'] }
     end
 
     def timestamps
-      data.collect { |date| date['timestamp'] }
+      data.each.collect { |date| date['timestamp'] }
     end
 
     Contract Num => {"viewers" => ArrayOf[Num], "timestamps" => ArrayOf[String]} 
