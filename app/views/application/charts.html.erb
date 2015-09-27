@@ -14,63 +14,69 @@
 
 
 <script>
-  function changeChart() {
-    name = $('#game_name').val();
-    name = name.replace(/ /g, "%20");
-    console.log("loading data for game: " + name);
-    var url = getRootUrl() + 'charts/total/hourly/' + name;
-    makeChart(url);
-  } 
+    var ENTER_KEY = 13;
 
-function makeChart(url) {
-  console.log("getting data");
-      $.ajax(url, {
-        success: function(data) {
-              var lineChartData = {
-                  labels : data["timestamps"],
-                  datasets : [
-                      {
-                          label: "viewers",
-                          fillColor : "rgba(151,187,205,0.2)",
-                          strokeColor : "rgba(151,187,205,1)",
-                          pointColor : "rgba(151,187,205,1)",
-                          pointStrokeColor : "#fff",
-                          pointHighlightFill : "#fff",
-                          pointHighlightStroke : "rgba(151,187,205,1)",
-                          data : data["viewers"]
-                      }
-                  ]
-              };
+    function changeChart() {
+        name = $('#game_name').val();
+        name = name.replace(/ /g, "%20");
+        var url = getRootUrl() + 'charts/total/hourly/' + name;
+        makeChart(url);
+    }
 
-              var ctx = $("#canvas")[0].getContext("2d");
-              ctx.width = document.body.clientWidth;
-              ctx.height = document.body.clientHeight;
-              myLine = new Chart(ctx).Line(lineChartData, {
-                responsive: true,
-                showXLabels: data["timestamps"].length / 12
-              });
-          },
-          error: function(data) {
-              console.log('error');
-          }
-      });
-  }
+    function makeChart(url) {
+        console.log("getting data");
+        $.ajax(url, {
+            success: function(data) {
+                var lineChartData = {
+                    labels : data["timestamps"],
+                    datasets : [
+                        {
+                            label: "viewers",
+                            fillColor : "rgba(151,187,205,0.2)",
+                            strokeColor : "rgba(151,187,205,1)",
+                            pointColor : "rgba(151,187,205,1)",
+                            pointStrokeColor : "#fff",
+                            pointHighlightFill : "#fff",
+                            pointHighlightStroke : "rgba(151,187,205,1)",
+                            data : data["viewers"]
+                        }
+                    ]
+                };
 
-  function getRootUrl() {
-      var rootUrl = '';
-      if (window.location.origin)
-          rootUrl = window.location.origin + '/';
-      else
-          rootUrl = window.location.protocol + '//' + window.location.host + '/';
+                var ctx = $("#canvas")[0].getContext("2d");
+                ctx.width = document.body.clientWidth;
+                ctx.height = document.body.clientHeight;
+                myLine = new Chart(ctx).Line(lineChartData, {
+                    responsive: true,
+                    showXLabels: data["timestamps"].length / 12
+                });
+            },
+            error: function() {
+                console.log('error');
+            }
+        });
+    }
 
-      return rootUrl;
-  }
+    function getRootUrl() {
+        var rootUrl = '';
+        if (window.location.origin)
+            rootUrl = window.location.origin + '/';
+        else
+            rootUrl = window.location.protocol + '//' + window.location.host + '/';
 
-$(document).ready(function(){
-      console.log("ready");
-      var url = getRootUrl() + 'charts/total/hourly';
-      makeChart(url);
-  });
+        return rootUrl;
+    }
+
+    $(document).ready(function(){
+        console.log("ready");
+        var url = getRootUrl() + 'charts/total/hourly';
+        makeChart(url);
+
+        $('#game_name').keyup(function(e){
+            if (e.keyCode == ENTER_KEY)
+                changeChart();
+        })
+    });
 
 
 
