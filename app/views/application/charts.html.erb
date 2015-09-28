@@ -4,17 +4,34 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
 <% end %>
 
-<div style="width:100%">
-  <div>
-    <canvas id="canvas"></canvas>
-    <input type="text" id="game_name" placeholder="game name">
-    <button onclick="changeChart()">Update</button>
+<div class="row">
+  <div class="col-lg-6">
+    <div class="input-group">
+      <input type="text" id="game_name" autocomplete="off" class="form-control" placeholder="Enter game to show stats for">
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="button" onclick="changeChart()">Update</button>
+      </span>
+    </div>
   </div>
 </div>
 
+<div id="autocomplete" style="margin-top: 5px;">
+
+</div>
+
+<div style="width:100%">
+  <div>
+    <canvas id="canvas"></canvas>
+  </div>
+</div>
 
 <script>
     var ENTER_KEY = 13;
+
+    var games = ["League of Legends", "Counter-Strike: Global Offensive",
+        "Dota 2", "Hearthstone: Heroes of Warcraft", "Super Mario Maker",
+        "Destiny", "H1Z1", "StarCraft II", "Diablo III: Reaper of Souls",
+        "World of Warcraft", "World of Tanks", "Soma", "Minecraft"];
 
     function changeChart() {
         name = $('#game_name').val();
@@ -67,6 +84,30 @@
         return rootUrl;
     }
 
+    function showSuggestions(text) {
+        if(text == '') {
+            $('#autocomplete').empty();
+            return;
+        }
+
+
+        $('#autocomplete').empty();
+        matches = [];
+        for (var i = 0; i < games.length; i++) {
+            // game starts with text
+            if (new RegExp('^' + text.toLowerCase()).test(games[i].toLowerCase())) {
+                matches.push(games[i]);
+                $('#autocomplete').append('<div class="autocomplete_item btn btn-sm btn-primary" style="margin-right: 5px" onclick="addTextToInput(this)">' + games[i] + '</div>');
+            }
+        }
+    }
+
+    function addTextToInput(item) {
+        $('#game_name').val(item.innerHTML);
+        $('#autocomplete').empty();
+        changeChart();
+    }
+
     $(document).ready(function(){
         console.log("ready");
         var url = getRootUrl() + 'charts/total/hourly';
@@ -75,10 +116,8 @@
         $('#game_name').keyup(function(e){
             if (e.keyCode == ENTER_KEY)
                 changeChart();
+            else
+                showSuggestions($('#game_name').val());
         })
     });
-
-
-
-
 </script>
