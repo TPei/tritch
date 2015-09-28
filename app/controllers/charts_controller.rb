@@ -17,16 +17,20 @@ class ChartsController < ActionController::Base
   end
 
   private
-    def twitch_stats
-      stats TwitchStat.all.only(:viewers, :timestamp)
-    end
 
-    def game_stats(game)
-      game = game.gsub('%20', ' ')
-      stats Game.where(name: game).pluck(:stats)[0]
+    def chart_data
+      @chart_data ||= ChartDataPreparer.new
     end
 
     def stats(data)
-      StatsCalculator.new data
+      @stats ||= StatsCalculator.new data
+    end
+
+    def twitch_stats
+      stats chart_data.twitch_stats
+    end
+
+    def game_stats(game)
+      stats chart_data.game_stats(game)
     end
 end
