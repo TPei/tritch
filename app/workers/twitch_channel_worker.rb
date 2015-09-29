@@ -1,6 +1,6 @@
 class TwitchChannelWorker
   include Sidekiq::Worker
-  #sidekiq_options :queue => :channels
+  sidekiq_options :queue => :user_stats, :retry => 3
 
   def perform(channel)
     twitch = TwitchChannelQuerier.new(channel)

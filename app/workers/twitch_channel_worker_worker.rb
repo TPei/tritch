@@ -1,6 +1,6 @@
 class TwitchChannelWorkerWorker
   include Sidekiq::Worker
-  #sidekiq_options :queue => :channels
+  sidekiq_options :queue => :user_stats
 
   def perform(hour, channel)
     interval = 5
